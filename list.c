@@ -49,8 +49,60 @@ void traverse(struct node *head) {
     temp = head;
 
     while (temp != NULL) {
-        printf("[%s] [%d] [%d]\n",temp->task->name, temp->task->priority, temp->task->burst);
+        printf("[%s] [%d] [%d] [%d] [%d] [%d]\n",temp->task->name, temp->task->priority, temp->task->burst,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
         temp = temp->next;
     }
     
+}
+
+void sort_arrival_time(struct node* head,struct node* array[]){
+    struct node* current_min = head;
+    struct node* current_item = head;
+    Task* temp = NULL;
+    int copy_index = 0;
+
+    while(current_item!= NULL){
+        while(current_item->next!=NULL){
+            if(current_item->next->task->arrival_time < current_min->task->arrival_time){
+                temp = current_min->task;
+                current_min->task = current_item->next->task;
+                current_item->next->task = temp;
+            }
+            current_item = current_item->next;
+        }
+        array[copy_index] = current_min;
+        current_item = current_min->next;
+        current_min = current_item;
+        copy_index ++;
+
+    }
+    
+
+
+}
+
+void sort_priority(struct node* head,struct node* array[]){
+    struct node* current_min = head;
+    struct node* current_item = head;
+    Task* temp = NULL;
+    int copy_index = 0;
+
+    while(current_item!= NULL){
+        while(current_item->next!=NULL){
+            if(current_item->next->task->priority < current_min->task->priority){
+                temp = current_min->task;
+                current_min->task = current_item->next->task;
+                current_item->next->task = temp;
+            }
+            current_item = current_item->next;
+        }
+        array[copy_index] = current_min;
+        current_item = current_min->next;
+        current_min = current_item;
+        copy_index ++;
+
+    }
+    
+
+
 }

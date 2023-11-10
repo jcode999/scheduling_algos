@@ -5,4 +5,9 @@
 void add(char *name, int burst, int arrival, int priority);
 
 // invoke the scheduler
-void schedule();
+void schedule(int num_processes);
+
+//test
+void schedule_fcfs(int length);
+
+void get_processes(int time,int num_processes,struct node** head,struct node* process_list[]);

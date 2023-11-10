@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
     int burst;
     int arrival;
 
+    int num_processes = 0;
+
 
     in = fopen(argv[1],"r");
 
@@ -37,10 +39,11 @@ int main(int argc, char *argv[])
         burst = atoi(strsep(&temp,","));
         arrival = atoi(strsep(&temp,","));
         priority = atoi(strsep(&temp,","));
+        num_processes = num_processes + 1;
         
         
         // add the task to the scheduler's list of tasks
-        add(name,burst,arrival,priority);
+        add(name,priority,burst,arrival);
 
         free(temp);
     }
@@ -48,7 +51,8 @@ int main(int argc, char *argv[])
     fclose(in);
     
     // invoke the scheduler
-    schedule();
+    printf("scheduling %d processes\n",num_processes);
+    schedule(num_processes);
 
     return 0;
 }
