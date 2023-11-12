@@ -9,6 +9,7 @@ struct node** list_head_ptr = &list_head;
 
 
 
+
 //running processes at time 'time' returns pointer to the list
 void get_processes(int time,int num_processes,struct node* head, struct node* process_list[]){
     struct node *temp;
