@@ -7,10 +7,7 @@
 struct node* list_head = NULL;
 struct node** list_head_ptr = &list_head;
 
-
-
-
-//running processes at time 'time' returns pointer to the list
+//accepts an empty array of nodes and fills it wih the processes running at time 'time'
 void get_processes(int time,int num_processes,struct node* head, struct node* process_list[]){
     struct node *temp;
     temp = head;
@@ -72,27 +69,20 @@ void q_sort(struct node* queue[],int num_processes,int queue_head_index,int queu
 
 
 void schedule(int num_processes){
-
-    //get a copy of the list as an array
-    //struct node* copy_array[num_processes];
-    //this function fills the array with sorted list
-    //sort_arrival_time(list_head,copy_array);
-
     struct node* current_running_process = NULL;
 
     //processes in ready queue waiting for cpu
     struct node* priority_queue[num_processes];
+    //initialized as null
     for (int i=0; i<num_processes; i++){
         priority_queue[i] = NULL;
     }
-    
-    //start time
-    int time = 0;
-
     //points to the head of the queue / (item with the highest priority)
     int queue_head_index = 0;
-
     int queue_tail_index = 0;
+    
+    //start time [Time when processes are in the ready queue for execution ]
+    int time = 0;
     while(1){
         
      /*info*/   printf("Time: %d\n",time);
@@ -113,12 +103,13 @@ void schedule(int num_processes){
         current_running_process->task->burst = current_running_process->task->burst - 1;
         if(current_running_process->task->burst<=0){
             printf("Current Running process %s finished its execution\n",current_running_process->task->name);
-           
-                priority_queue[queue_head_index] = NULL; //remove from the queue
-                queue_head_index ++; //change pointer to the queue head
+                //remove from the queue
+                priority_queue[queue_head_index] = NULL; 
+                //change pointer to the queue head
+                queue_head_index ++; 
 
                 if(queue_head_index==num_processes){
-                    printf("All Process Finished..\n");
+                    printf("All Process Finished Their Execution.\nExiting..\n");
                     break;
                 }
             
@@ -166,13 +157,7 @@ void schedule(int num_processes){
     run(process_to_run->task,process_to_run->task->burst);
     }
     
-    
-
     time ++;
-
-    
-    
-
     printf("\n");
     
 

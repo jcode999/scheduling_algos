@@ -19,6 +19,23 @@ void insert(struct node **head, Task *newTask) {
     newNode->next = *head;
     *head = newNode;
 }
+void insert_fifo(struct node** tail,struct node** head,Task *newTask){
+    
+    struct node *newNode = malloc(sizeof(struct node));
+    newNode->task = newTask;
+    if(*head == NULL){
+        
+        *head = newNode;
+        *tail = newNode;
+        
+        return;
+    }
+
+    (*tail)->next = newNode;
+    *tail = newNode;
+    
+
+}
 
 // delete the selected task from the list
 void delete(struct node **head, Task *task) {
@@ -55,6 +72,18 @@ void traverse(struct node *head) {
     
 }
 
+// free the list
+void clean_up(struct node *head) {
+    struct node *temp;
+    temp = head;
+
+    while (temp != NULL) {
+        free(temp);
+        temp = temp->next;
+    }
+    
+}
+
 void sort_arrival_time(struct node* head,struct node* array[]){
     struct node* current_min = head;
     struct node* current_item = head;
@@ -77,8 +106,6 @@ void sort_arrival_time(struct node* head,struct node* array[]){
 
     }
     
-
-
 }
 
 void sort_priority(struct node* head,struct node* array[]){
