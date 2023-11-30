@@ -53,11 +53,11 @@ void get_processes_untill_time(int start_time,int end_time,int num_processes,str
 }
 
 void add_processes_to_queue(struct node* new_processes[],int queue_length,struct node** circular_queue_head,struct node** circular_queue_tail){
-    // printf("New Processes: ");
+    
         if(new_processes[0]!=NULL){
             for(int i=0;i<queue_length;i++){
                 if(new_processes[i]!=NULL){
-                    //printf("inserting %s to queue\n",new_processes[i]->task->name);
+                    
                     insert_fifo(circular_queue_tail,circular_queue_head,new_processes[i]->task);
                 }
             }
@@ -101,7 +101,7 @@ void report(struct node* task_list,int num_processes){
 
 
 void schedule(int num_process){
-    //printf("quantum: %d\n ",my_quantum);
+    printf("quantum: %d\n ",QUANTUM);
     struct node* circular_queue = NULL;
     struct node** head = &circular_queue;
 
@@ -134,13 +134,13 @@ void schedule(int num_process){
     while(completed_processes<=num_process){
         // printf("current queue\n");
         // traverse(circular_queue);
-        if(current_process->task->remaining_burst_time<=my_quantum){
+        if(current_process->task->remaining_burst_time<=QUANTUM){
            slice = current_process->task->remaining_burst_time;
         }
         else{
-            slice = my_quantum;
+            slice = QUANTUM;
         }
-        //printf("Slice for this process is : %d\n",slice);
+       
         //run the process for that duration
         run(current_process->task,slice);
         
@@ -151,38 +151,47 @@ void schedule(int num_process){
 
         //add those processes to the queue
         add_processes_to_queue(new_processes,num_process,head,tail);
-        //next process
         next_process = current_process->next;
         
 
-        if(current_process->task->remaining_burst_time<=my_quantum){  
+        if(current_process->task->remaining_burst_time<=QUANTUM){  
             current_process->task->completion_time=process_enter_time+slice;   
-            //printf("[%s] completed at [%d]\n",current_process->task->name,current_process->task->completion_time);
-            struct node* to_del = q_delete(head,tail,current_process->task);
-            
+            printf("[%s] completed at [%d]\n",current_process->task->name,current_process->task->completion_time);
+            q_delete(head,tail,current_process->task);
             completed_processes++;
         }
          else{
-            slice = my_quantum;
+            slice = QUANTUM;
             current_process->task->remaining_burst_time = current_process->task->remaining_burst_time - slice;
         }
-        if(current_process!=NULL)
-        //printf("remainig burst: %d\n",current_process->task->remaining_burst_time);
+        
         if(next_process==NULL && circular_queue!=NULL){//reached end of the ready queue
             next_process = circular_queue;
         }
-        if(next_process==NULL && completed_processes<num_process){//reached end of the ready queue
-            //printf("fetching new processes from time [%d to %d]\n",60, 90);
-            get_processes_untill_time(65,90,num_process,list_head,new_processes,circular_queue);
+
+        if(next_process==NULL && completed_processes<num_process){//reached end of the ready queue but not all processes have been scheduled
+            //seek continuously untill we find a process to run
+            
+            int start = process_enter_time + slice;
+            while(new_processes[0]==NULL){
+            int end = start + QUANTUM;
+            get_processes_untill_time(start,end,num_process,list_head,new_processes,circular_queue);
             add_processes_to_queue(new_processes,num_process,head,tail);
-            next_process = new_processes[0];
+            
+            next_process = circular_queue;
+            start = end;
+            }
+            process_enter_time = next_process->task->arrival_time;
+            slice = 0;//yet to be determinded for this process
+            
+            
         }
         if(next_process==NULL){
             break;
         }
         process_enter_time = process_enter_time + slice;
         current_process = next_process;
-    //    printf("next process[%s]  enter time: %d remaining burst: %d\n",next_process->task->name, process_enter_time,next_process->task->remaining_burst_time);
+       printf("next process[%s]  enter time: %d remaining burst: %d\n",next_process->task->name, process_enter_time,next_process->task->remaining_burst_time);
         
 
     //    printf("\n");
@@ -190,7 +199,7 @@ void schedule(int num_process){
     }
     printf("\nReport\n<proc><comp><TAT><wait>\n");
     report(list_head,num_process);
-    // clean_up(circular_queue);
+    clean_up(circular_queue);
     // clean_up(list_head);
     
 

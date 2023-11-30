@@ -71,12 +71,13 @@ struct node* q_delete(struct node **head,struct node **tail, Task *task) {
     temp = *head;
     // special case - beginning of list
     if (strcmp(task->name,temp->task->name) == 0) {
-        
+        printf("removing head of the queue\n");
         *head = (*head)->next;
        
     }
     else {
         // interior or last element in the list
+        printf("removing non head of the queue\n");
         prev = *head;
         temp = temp->next;
         while (strcmp(task->name,temp->task->name) != 0) {

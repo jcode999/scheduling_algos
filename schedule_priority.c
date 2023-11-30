@@ -7,17 +7,36 @@
 struct node* list_head = NULL;
 struct node** list_head_ptr = &list_head;
 
+void initialize_null_array(struct node* list[],int size){
+    for (int i=0;i<size;i++){
+        list[i] = NULL;
+    }
+
+}
+void print_list(struct node* list[],int size, char* header){
+    printf("%s\n",header);
+    for (int i=0;i<size;i++){
+        if(list[i] != NULL){
+            printf("%s ",list[i]->task->name);
+        }
+    }
+    printf("\n");
+
+}
+
+
 void report(struct node* task_list,int num_processes){
     struct node *temp;
     temp = task_list;
     int total_wait_time = 0;
+    printf("%-15s%-25s%-25s%-15s\n", "Process", "Completion Time", "Turn Around Time","Waiting Time");
     while (temp != NULL) {
         //Turn Around Time = Completion Time - Arrival Time
         temp->task->turn_around_time = temp->task->completion_time - temp->task->arrival_time;
         //Waiting Time = Turn Around Time - Burst Time
         temp->task->wait_time = temp->task->turn_around_time - temp->task->burst;
         total_wait_time = temp->task->wait_time + total_wait_time;
-        printf("[%s] [%d] [%d] [%d]\n",temp->task->name,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
+        printf("%-15s %-25d %-25d %-15d\n",temp->task->name,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
         // printf("[%s] [%d] [%d] [%d] [%d] [%d]\n",temp->task->name, temp->task->priority, temp->task->burst,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
         temp = temp->next;
     }
@@ -38,6 +57,40 @@ void get_processes(int time,int num_processes,struct node* head, struct node* pr
         }
         temp = temp->next; 
     }
+}
+void add_processes(struct node* new_processes[],int num_processes,struct node* priority_queue[],int *queue_tail_index){
+     if(new_processes[0]!=NULL){
+        
+        printf("Adding following processes to the queue: ");
+        for(int i = 0;i<num_processes;i++){
+            if(new_processes[i]!=NULL){
+            printf("[%s],",new_processes[i]->task->name);
+            priority_queue[*queue_tail_index] = new_processes[i];
+            (*queue_tail_index)++;
+            }
+        }
+        printf("\n");
+    }
+}
+int check_if_completed(int time,struct node* current_running_process,struct node* priority_queue[],int num_processes,int *queue_head_index){
+     if(current_running_process!=NULL){
+        current_running_process->task->remaining_burst_time = current_running_process->task->remaining_burst_time - 1;
+        if(current_running_process->task->remaining_burst_time<=0){
+            printf("Current Running process %s finished its execution at time %d\n",current_running_process->task->name,time);
+                current_running_process->task->completion_time = time;
+                //remove from the queue
+                priority_queue[*queue_head_index] = NULL; 
+                //change pointer to the queue head
+                (*queue_head_index) ++; 
+
+                if(*queue_head_index==num_processes){
+                    printf("All Process Finished Their Execution.\nExiting..\n");
+                    return 1;
+                }
+            
+        }
+    }
+    return 0;
 }
 
 void add(char *name, int priority, int burst, int arrival_time){
@@ -73,6 +126,14 @@ void q_sort(struct node* queue[],int num_processes,int queue_head_index,int queu
                             queue[j] = temp;
                         
                         }
+                        else if(current_min->task->priority == current_item->task->priority){
+                            if(current_min->task->arrival_time > current_item->task->arrival_time){
+                                struct node* temp = current_min;
+                                queue[i] = current_item;
+                                queue[j] = temp;
+                            }
+
+                        }
                     }
                 }
             }
@@ -92,88 +153,42 @@ void schedule(int num_processes){
     //processes in ready queue waiting for cpu
     struct node* priority_queue[num_processes];
     //initialized as null
-    for (int i=0; i<num_processes; i++){
-        priority_queue[i] = NULL;
-    }
+    initialize_null_array(priority_queue,num_processes);
     //points to the head of the queue / (item with the highest priority)
     int queue_head_index = 0;
     int queue_tail_index = 0;
+
     
     //start time [Time when processes are in the ready queue for execution ]
     int time = 0;
     while(1){
         
-     /*info*/   printf("Time: %d\n",time);
-                            printf("Processes in queue: ");
-                            for (int i=queue_head_index; i<queue_tail_index; i++){
-                                
-                                if(priority_queue[i] != NULL){
-                                    
-                                    printf("[%s],",priority_queue[i]->task->name);
-                                }
-                                
-                            }
-     /*info*/   printf("\n");
-    
+     /*info*/   
+    printf("Time: %d\n",time);
+    print_list(priority_queue,num_processes,"Processes in queue:");
 
-    //check if currently running process has completed its execution
-    if(current_running_process!=NULL){
-        current_running_process->task->remaining_burst_time = current_running_process->task->remaining_burst_time - 1;
-        if(current_running_process->task->remaining_burst_time<=0){
-            printf("Current Running process %s finished its execution at time %d\n",current_running_process->task->name,time);
-                current_running_process->task->completion_time = time;
-                //remove from the queue
-                priority_queue[queue_head_index] = NULL; 
-                //change pointer to the queue head
-                queue_head_index ++; 
-
-                if(queue_head_index==num_processes){
-                    printf("All Process Finished Their Execution.\nExiting..\n");
-                    break;
-                }
-            
-        }
+    //check if current running process finished its execution
+    int check = check_if_completed(time,current_running_process,priority_queue,num_processes,&queue_head_index);
+    if(check==1){
+        break;
     }
     
     //get processes ready at time t
     struct node* new_processes[num_processes];
-    for(int i =0;i<num_processes;i++){
-        new_processes[i] = NULL;
-    }
+    initialize_null_array(new_processes,num_processes);
     get_processes(time,num_processes,list_head,new_processes);
     
     //add new processes to the queue
-    if(new_processes[0]!=NULL){
-        
-        printf("Adding following processes to the queue: ");
-        for(int i = 0;i<num_processes;i++){
-            if(new_processes[i]!=NULL){
-            printf("[%s],",new_processes[i]->task->name);
-            priority_queue[queue_tail_index] = new_processes[i];
-            queue_tail_index=queue_tail_index+1;
-            }
-        }
-        printf("\n");
-    }
+    add_processes(new_processes,num_processes,priority_queue,&queue_tail_index);
     
-    if(priority_queue[queue_head_index]!=NULL){
-    printf("New queue:[%d %d) [",queue_head_index,queue_tail_index);
-    for(int i= queue_head_index;i<queue_tail_index;i++){
-        printf("%s ",priority_queue[i]->task->name);
-    }
-    printf("]");
-    printf("\n");
-    }
-   
-    
-    //run the process with highest priority
+    //sort the queue based on priority
     q_sort(priority_queue,num_processes,queue_head_index,queue_tail_index);
 
     if(priority_queue[queue_head_index]!=NULL){
-    struct node* process_to_run = priority_queue[queue_head_index];
-    current_running_process = process_to_run;
-    printf("Process with highest priority %s \n",process_to_run->task->name);
-    run(process_to_run->task,process_to_run->task->burst);
+        struct node* process_to_run = priority_queue[queue_head_index];
+        current_running_process = process_to_run;
+        printf("Process with highest priority %s \n",process_to_run->task->name);
+        run(process_to_run->task,1);
     }
     
     time ++;
