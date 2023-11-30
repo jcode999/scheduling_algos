@@ -7,6 +7,24 @@
 struct node* list_head = NULL;
 struct node** list_head_ptr = &list_head;
 
+void report(struct node* task_list,int num_processes){
+    struct node *temp;
+    temp = task_list;
+    int total_wait_time = 0;
+    while (temp != NULL) {
+        //Turn Around Time = Completion Time - Arrival Time
+        temp->task->turn_around_time = temp->task->completion_time - temp->task->arrival_time;
+        //Waiting Time = Turn Around Time - Burst Time
+        temp->task->wait_time = temp->task->turn_around_time - temp->task->burst;
+        total_wait_time = temp->task->wait_time + total_wait_time;
+        printf("[%s] [%d] [%d] [%d]\n",temp->task->name,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
+        // printf("[%s] [%d] [%d] [%d] [%d] [%d]\n",temp->task->name, temp->task->priority, temp->task->burst,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
+        temp = temp->next;
+    }
+    printf("Total Waiting Time: %d\n",total_wait_time);
+    printf("Average Waiting Time: %d\n", total_wait_time/num_processes);
+}
+
 //accepts an empty array of nodes and fills it wih the processes running at time 'time'
 void get_processes(int time,int num_processes,struct node* head, struct node* process_list[]){
     struct node *temp;
@@ -32,7 +50,7 @@ void add(char *name, int priority, int burst, int arrival_time){
     task->completion_time = -1;//initially not determined 
     task->wait_time = -1;//initially not determined 
     task->turn_around_time = -1;//initially not determined 
-    
+    task->remaining_burst_time = burst;
     insert(list_head_ptr,task);
 }
 
@@ -100,9 +118,10 @@ void schedule(int num_processes){
 
     //check if currently running process has completed its execution
     if(current_running_process!=NULL){
-        current_running_process->task->burst = current_running_process->task->burst - 1;
-        if(current_running_process->task->burst<=0){
-            printf("Current Running process %s finished its execution\n",current_running_process->task->name);
+        current_running_process->task->remaining_burst_time = current_running_process->task->remaining_burst_time - 1;
+        if(current_running_process->task->remaining_burst_time<=0){
+            printf("Current Running process %s finished its execution at time %d\n",current_running_process->task->name,time);
+                current_running_process->task->completion_time = time;
                 //remove from the queue
                 priority_queue[queue_head_index] = NULL; 
                 //change pointer to the queue head
@@ -163,6 +182,8 @@ void schedule(int num_processes){
 
 
     }
+
+    report(list_head,num_processes);
     
     
 

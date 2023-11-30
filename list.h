@@ -17,3 +17,4 @@ void sort_arrival_time(struct node *head,struct node* array[]);
 void sort_priority(struct node *head,struct node* array[]);
 void clean_up(struct node* head);
 void insert_fifo(struct node **tail,struct node **head, Task *task);
+struct node* q_delete(struct node **head,struct node **tail, Task *task);

@@ -1,0 +1,321 @@
+scheduling 6 processes
+QUANTUM: 4
+time: 0
+completed processes: 0
+Inserting [P1] in the circular queue
+]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [5] [-1] [-1] [-1]
+No Current Running Process. 
+Setting new process [P1]
+Current Running Process: [P1]
+Running task = [P1] [0] [5] for 5 units.
+
+time: 1
+completed processes: 0
+Inserting [P2] in the circular queue
+]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [4] [-1] [-1] [-1]
+[P2] [0] [6] [-1] [-1] [-1]
+Current Running Process: [P1]
+Running task = [P1] [0] [4] for 4 units.
+
+time: 2
+completed processes: 0
+Inserting [P3] in the circular queue
+]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [3] [-1] [-1] [-1]
+[P2] [0] [6] [-1] [-1] [-1]
+[P3] [0] [3] [-1] [-1] [-1]
+Current Running Process: [P1]
+Running task = [P1] [0] [3] for 3 units.
+
+time: 3
+completed processes: 0
+Inserting [P4] in the circular queue
+]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [2] [-1] [-1] [-1]
+[P2] [0] [6] [-1] [-1] [-1]
+[P3] [0] [3] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+Current Running Process: [P1]
+Running task = [P1] [0] [2] for 2 units.
+Current Process Qunatum Reached.
+ Next Process: [P2] 
+
+time: 4
+completed processes: 0
+Inserting [P5] in the circular queue
+]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [6] [-1] [-1] [-1]
+[P3] [0] [3] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+Current Running Process: [P2]
+Running task = [P2] [0] [6] for 6 units.
+
+time: 5
+completed processes: 0
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [5] [-1] [-1] [-1]
+[P3] [0] [3] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+Current Running Process: [P2]
+Running task = [P2] [0] [5] for 5 units.
+
+time: 6
+completed processes: 0
+Inserting [P6] in the circular queue
+]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [4] [-1] [-1] [-1]
+[P3] [0] [3] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P2]
+Running task = [P2] [0] [4] for 4 units.
+
+time: 7
+completed processes: 0
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [3] [-1] [-1] [-1]
+[P3] [0] [3] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P2]
+Running task = [P2] [0] [3] for 3 units.
+Current Process Qunatum Reached.
+ Next Process: [P3] 
+
+time: 8
+completed processes: 0
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P3] [0] [3] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P3]
+Running task = [P3] [0] [3] for 3 units.
+
+time: 9
+completed processes: 0
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P3] [0] [2] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P3]
+Running task = [P3] [0] [2] for 2 units.
+
+time: 10
+completed processes: 0
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P3] [0] [1] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P3]
+Running task = [P3] [0] [1] for 1 units.
+Current Process Finished Its Execution.
+ Next Process: [P4] 
+queue after deletion 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+
+time: 11
+completed processes: 1
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P4] [0] [1] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P4]
+Running task = [P4] [0] [1] for 1 units.
+Current Process Qunatum Reached.
+ Next Process: [P5] 
+Current Process Finished Its Execution.
+ Next Process: [P5] 
+queue after deletion 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+
+time: 12
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [5] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P5]
+Running task = [P5] [0] [5] for 5 units.
+
+time: 13
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [4] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P5]
+Running task = [P5] [0] [4] for 4 units.
+
+time: 14
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [3] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P5]
+Running task = [P5] [0] [3] for 3 units.
+
+time: 15
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [2] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P5]
+Running task = [P5] [0] [2] for 2 units.
+Current Process Qunatum Reached.
+ Next Process: [P6] 
+
+time: 16
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+[P6] [0] [4] [-1] [-1] [-1]
+Current Running Process: [P6]
+Running task = [P6] [0] [4] for 4 units.
+
+time: 17
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+[P6] [0] [3] [-1] [-1] [-1]
+Current Running Process: [P6]
+Running task = [P6] [0] [3] for 3 units.
+
+time: 18
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+[P6] [0] [2] [-1] [-1] [-1]
+Current Running Process: [P6]
+Running task = [P6] [0] [2] for 2 units.
+
+time: 19
+completed processes: 2
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+[P6] [0] [1] [-1] [-1] [-1]
+Current Running Process: [P6]
+Running task = [P6] [0] [1] for 1 units.
+Current Process Qunatum Reached.
+ Next Process: [NULL] 
+queue after deletion 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+
+time: 20
+completed processes: 3
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P1] [0] [1] [-1] [-1] [-1]
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+Current Running Process: [P1]
+Running task = [P1] [0] [1] for 1 units.
+Current Process Finished Its Execution.
+ Next Process: [P2] 
+queue after deletion 
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+
+time: 21
+completed processes: 4
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P2] [0] [2] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+Current Running Process: [P2]
+Running task = [P2] [0] [2] for 2 units.
+
+time: 22
+completed processes: 4
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P2] [0] [1] [-1] [-1] [-1]
+[P5] [0] [1] [-1] [-1] [-1]
+Current Running Process: [P2]
+Running task = [P2] [0] [1] for 1 units.
+Current Process Finished Its Execution.
+ Next Process: [P5] 
+queue after deletion 
+[P5] [0] [1] [-1] [-1] [-1]
+
+time: 23
+completed processes: 5
+[]
+[TEST][schedule_rr()]: Traversing the ll_queue 
+[P5] [0] [1] [-1] [-1] [-1]
+Current Running Process: [P5]
+Running task = [P5] [0] [1] for 1 units.
+Current Process Qunatum Reached.
+ Next Process: [NULL] 
+queue after deletion 
+[P6] [0] [0] [19] [13] [13]
+[P5] [0] [0] [23] [19] [19]
+[P4] [0] [0] [11] [8] [8]
+[P3] [0] [0] [10] [8] [8]
+[P2] [0] [0] [22] [21] [21]
+[P1] [0] [0] [20] [20] [20]
+Total Waiting Time: 89
+Average Waiting Time: 14

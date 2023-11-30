@@ -15,6 +15,7 @@ typedef struct task {
     int completion_time;
     int turn_around_time;
     int wait_time;
+    int remaining_burst_time;
  } Task;
 
 #endif

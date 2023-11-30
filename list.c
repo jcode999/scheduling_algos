@@ -23,16 +23,20 @@ void insert_fifo(struct node** tail,struct node** head,Task *newTask){
     
     struct node *newNode = malloc(sizeof(struct node));
     newNode->task = newTask;
+    newNode->next = NULL;
     if(*head == NULL){
         
         *head = newNode;
         *tail = newNode;
         
+        
         return;
     }
-
+   
     (*tail)->next = newNode;
     *tail = newNode;
+    //printf("new node address: %p\n",newNode);
+    
     
 
 }
@@ -55,9 +59,42 @@ void delete(struct node **head, Task *task) {
             prev = temp;
             temp = temp->next;
         }
-
         prev->next = temp->next;
+        
+        
     }
+}
+struct node* q_delete(struct node **head,struct node **tail, Task *task) {
+    struct node *temp;
+    struct node *prev;
+    //traverse((*head));
+    temp = *head;
+    // special case - beginning of list
+    if (strcmp(task->name,temp->task->name) == 0) {
+        
+        *head = (*head)->next;
+       
+    }
+    else {
+        // interior or last element in the list
+        prev = *head;
+        temp = temp->next;
+        while (strcmp(task->name,temp->task->name) != 0) {
+            prev = temp;
+            temp = temp->next;
+        }
+        prev->next = temp->next;
+        if(temp->task->name==(*tail)->task->name){
+            *tail = prev;
+        }
+        // printf("deleting %p\n",temp);
+        // if(temp->next!=NULL)
+        // printf("new tail: %s\n",temp->next->task->name);
+        //free(temp);
+        
+        
+    }
+    return NULL;
 }
 
 // traverse the list
@@ -66,7 +103,7 @@ void traverse(struct node *head) {
     temp = head;
 
     while (temp != NULL) {
-        printf("[%s] [%d] [%d] [%d] [%d] [%d]\n",temp->task->name, temp->task->priority, temp->task->burst,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
+        printf("[%p] [%s] [%d] [%d] [%d] [%d] [%d]\n",temp,temp->task->name, temp->task->priority, temp->task->burst,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
         temp = temp->next;
     }
     
