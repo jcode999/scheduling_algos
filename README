@@ -13,3 +13,40 @@ For example, to build the FCFS scheduler, enter
 make fcfs
 
 which builds the fcfs executable file.
+
+Use the [assignment3.txt] file provided as input file
+
+To run: ./fcfs assignment3.txt
+
+First Come First Serve (FCFS)
+Implementation:
+- Reading Tasks: In the driver.c, tasks are read from an input file of your choice. Each task includes details like name, priority, duration, and arrival time.
+- Task Addition: The add function is used to insert each new task into the list.
+- Scheduling: In schedule_fcfs.c, the schedule function goes through the linked list and it uses the arrival time to determine what order they are in.
+- Execution: For each task in the list, a simulation of the task is run from cpu.c.
+
+Shortest Job First (SJF)
+Implementation:
+- Reading Tasks: Similar to FCFS, tasks are read from an input file.
+- Task Addition: Uses the same add function as FCFS to insert tasks into the list.
+- Sorting Tasks: In schedule_sjf.c, the tasks are sorted based on their duration time using a function to determine shortest to longest duration. This function rearranges the tasks to follow the correct order of times.
+- Scheduling: After sorting, the schedule function goes through the sorted list.
+- Execution: The run function is called for each task from cpu.c, similar to FCFS.
+
+RR:
+Implementation:
+- start with first process to enter the ready queue
+- determine the time slice for the process
+- if quantum exceeds more than the burst time then mark process as completed, start the next process 	in queue
+- if burst time is more than quantum 
+- preempt the process with next
+- keep going in cycle until every process is completed.
+
+Priority:
+Implementation:
+- start at time 0
+- look for process incoming at every unit time
+- if new process with higher priority arrives preempt the current process with the higher priority process
+- keep doing it until every process is completed.
+
+
