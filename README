@@ -49,4 +49,12 @@ Implementation:
 - if new process with higher priority arrives preempt the current process with the higher priority process
 - keep doing it until every process is completed.
 
+Priority with RR:
+- Multilevel queue
+- Multiple Ques Based on priority
+- start with the process entering first in the ready queue
+- run for time quantum
+- seek for process incoming, if a new process with higher priority, schedule the queue with RR
+
+
 
