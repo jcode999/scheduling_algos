@@ -35,26 +35,27 @@ Implementation:
 
 RR:
 Implementation:
-- start with first process to enter the ready queue
+- start with the first process to enter the ready queue
 - determine the time slice for the process
-- if quantum exceeds more than the burst time then mark process as completed, start the next process 	in queue
+- if quantum exceeds more than the burst time then mark the process as completed, start the next process 	in the queue
 - if burst time is more than quantum 
-- preempt the process with next
-- keep going in cycle until every process is completed.
+- preempt the process with the next process in the queue
+- keep going in a cycle until every process is completed.
 
 Priority:
 Implementation:
 - start at time 0
 - look for process incoming at every unit time
-- if new process with higher priority arrives preempt the current process with the higher priority process
+- if a new process with higher priority arrives preempt the current process with the higher priority process
 - keep doing it until every process is completed.
 
 Priority with RR:
 - Multilevel queue
 - Multiple Ques Based on priority
-- start with the process entering first in the ready queue
+- start with the process to enter first in the ready queue
 - run for time quantum
 - seek for process incoming, if a new process with higher priority, schedule the queue with RR
+  else keep going until the end of all the processes in the current queue have finished execution
 
 
 
