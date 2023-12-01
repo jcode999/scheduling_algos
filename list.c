@@ -25,7 +25,7 @@ void insert_fifo(struct node** tail,struct node** head,Task *newTask){
     newNode->task = newTask;
     newNode->next = NULL;
     if(*head == NULL){
-        
+        printf("head not null\n");
         *head = newNode;
         *tail = newNode;
         
@@ -104,10 +104,25 @@ void traverse(struct node *head) {
     temp = head;
 
     while (temp != NULL) {
-        printf("[%p] [%s] [%d] [%d] [%d] [%d] [%d]\n",temp,temp->task->name, temp->task->priority, temp->task->burst,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
+        printf("[%p] [%s] [%d] [%d] [%d] [%d] [%d]\n",temp,temp->task->name, temp->task->priority, temp->task->burst,temp->task->arrival_time,temp->task->turn_around_time,temp->task->wait_time);
         temp = temp->next;
     }
     
+}
+
+struct node* get_tail(struct node* head){
+    struct node *temp;
+    temp = head;
+
+    while (temp != NULL) {
+        if(temp->next == NULL){
+            return temp;
+        }
+        temp = temp->next;
+        
+    }
+    return NULL;
+
 }
 
 // free the list
@@ -122,11 +137,11 @@ void clean_up(struct node *head) {
     
 }
 
-void sort_arrival_time(struct node* head,struct node* array[]){
+void sort_arrival_time(struct node* head){
     struct node* current_min = head;
     struct node* current_item = head;
     Task* temp = NULL;
-    int copy_index = 0;
+    
 
     while(current_item!= NULL){
         while(current_item->next!=NULL){
@@ -137,10 +152,10 @@ void sort_arrival_time(struct node* head,struct node* array[]){
             }
             current_item = current_item->next;
         }
-        array[copy_index] = current_min;
+        
         current_item = current_min->next;
         current_min = current_item;
-        copy_index ++;
+        
 
     }
     
