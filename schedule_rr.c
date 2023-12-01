@@ -85,13 +85,14 @@ void report(struct node* task_list,int num_processes){
     struct node *temp;
     temp = task_list;
     int total_wait_time = 0;
+    printf("%-15s%-25s%-25s%-15s\n", "Process", "Completion Time", "Turn Around Time","Waiting Time");
     while (temp != NULL) {
         //Turn Around Time = Completion Time - Arrival Time
         temp->task->turn_around_time = temp->task->completion_time - temp->task->arrival_time;
         //Waiting Time = Turn Around Time - Burst Time
         temp->task->wait_time = temp->task->turn_around_time - temp->task->burst;
         total_wait_time = temp->task->wait_time + total_wait_time;
-        printf("[%s] [%d] [%d] [%d]\n",temp->task->name,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
+        printf("%-15s %-25d %-25d %-15d\n",temp->task->name,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
         // printf("[%s] [%d] [%d] [%d] [%d] [%d]\n",temp->task->name, temp->task->priority, temp->task->burst,temp->task->completion_time,temp->task->turn_around_time,temp->task->wait_time);
         temp = temp->next;
     }
@@ -156,7 +157,7 @@ void schedule(int num_process){
 
         if(current_process->task->remaining_burst_time<=QUANTUM){  
             current_process->task->completion_time=process_enter_time+slice;   
-            printf("[%s] completed at [%d]\n",current_process->task->name,current_process->task->completion_time);
+            //printf("[%s] completed at [%d]\n",current_process->task->name,current_process->task->completion_time);
             q_delete(head,tail,current_process->task);
             completed_processes++;
         }
@@ -191,16 +192,16 @@ void schedule(int num_process){
         }
         process_enter_time = process_enter_time + slice;
         current_process = next_process;
-       printf("next process[%s]  enter time: %d remaining burst: %d\n",next_process->task->name, process_enter_time,next_process->task->remaining_burst_time);
+       //printf("next process[%s]  enter time: %d remaining burst: %d\n",next_process->task->name, process_enter_time,next_process->task->remaining_burst_time);
         
 
     //    printf("\n");
     
     }
-    printf("\nReport\n<proc><comp><TAT><wait>\n");
+    printf("\nReport\n");
     report(list_head,num_process);
-    clean_up(circular_queue);
-    // clean_up(list_head);
+    
+    
     
 
 

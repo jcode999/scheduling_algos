@@ -61,22 +61,22 @@ void get_processes(int time,int num_processes,struct node* head, struct node* pr
 void add_processes(struct node* new_processes[],int num_processes,struct node* priority_queue[],int *queue_tail_index){
      if(new_processes[0]!=NULL){
         
-        printf("Adding following processes to the queue: ");
+        // printf("Adding following processes to the queue: ");
         for(int i = 0;i<num_processes;i++){
             if(new_processes[i]!=NULL){
-            printf("[%s],",new_processes[i]->task->name);
+            // printf("[%s],",new_processes[i]->task->name);
             priority_queue[*queue_tail_index] = new_processes[i];
             (*queue_tail_index)++;
             }
         }
-        printf("\n");
+        // printf("\n");
     }
 }
 int check_if_completed(int time,struct node* current_running_process,struct node* priority_queue[],int num_processes,int *queue_head_index){
      if(current_running_process!=NULL){
         current_running_process->task->remaining_burst_time = current_running_process->task->remaining_burst_time - 1;
         if(current_running_process->task->remaining_burst_time<=0){
-            printf("Current Running process %s finished its execution at time %d\n",current_running_process->task->name,time);
+            // printf("Current Running process %s finished its execution at time %d\n",current_running_process->task->name,time);
                 current_running_process->task->completion_time = time;
                 //remove from the queue
                 priority_queue[*queue_head_index] = NULL; 
@@ -84,7 +84,7 @@ int check_if_completed(int time,struct node* current_running_process,struct node
                 (*queue_head_index) ++; 
 
                 if(*queue_head_index==num_processes){
-                    printf("All Process Finished Their Execution.\nExiting..\n");
+                    // printf("All Process Finished Their Execution.\nExiting..\n");
                     return 1;
                 }
             
@@ -110,7 +110,7 @@ void add(char *name, int priority, int burst, int arrival_time){
 void q_sort(struct node* queue[],int num_processes,int queue_head_index,int queue_tail_index){
     
     // printf("queue head: %d , queue tail: %d\n",queue_head_index,queue_tail_index);
-    printf("finding the process with highest priority\n");
+    // printf("finding the process with highest priority\n");
     if(queue[queue_head_index]!=NULL){
         // printf("Not Null\n");
         for(int i = queue_head_index;i<queue_tail_index;i++){
@@ -140,7 +140,7 @@ void q_sort(struct node* queue[],int num_processes,int queue_head_index,int queu
         // printf("resturning:(head index: %d) %s\n",queue_head_index,queue[queue_head_index]->task->name);
         return;
     }
-    printf("Empty Queue \n");
+    // printf("Empty Queue \n");
     
     
     
@@ -164,8 +164,8 @@ void schedule(int num_processes){
     while(1){
         
      /*info*/   
-    printf("Time: %d\n",time);
-    print_list(priority_queue,num_processes,"Processes in queue:");
+    // printf("Time: %d\n",time);
+    // print_list(priority_queue,num_processes,"Processes in queue:");
 
     //check if current running process finished its execution
     int check = check_if_completed(time,current_running_process,priority_queue,num_processes,&queue_head_index);
@@ -187,17 +187,17 @@ void schedule(int num_processes){
     if(priority_queue[queue_head_index]!=NULL){
         struct node* process_to_run = priority_queue[queue_head_index];
         current_running_process = process_to_run;
-        printf("Process with highest priority %s \n",process_to_run->task->name);
+        // printf("Process with highest priority %s \n",process_to_run->task->name);
         run(process_to_run->task,1);
     }
     
     time ++;
-    printf("\n");
+    // printf("\n");
     
 
 
     }
-
+    printf("\nReport\n");
     report(list_head,num_processes);
     
     
